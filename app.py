@@ -41,5 +41,5 @@ if start_button:
     st.pyplot(fig)
     # historiograma
     st.subheader(f'Histograma de odometro de los coches desde {selected_year}')
-    hist_fig = px.histogram(data_selected_year, x='odometer', y='price')
+    hist_fig = px.histogram(data_selected_year, x='odometer')
     st.plotly_chart(hist_fig)
