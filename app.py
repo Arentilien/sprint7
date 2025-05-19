@@ -36,13 +36,36 @@ ve_us['is_4wd'] = ve_us['is_4wd'].astype(int)
 ve_us['is_4wd'] = ve_us['is_4wd'].astype(str)
 
 
+# Damos un valor a los nulos para trabajar
+ve_us['odometer'] = ve_us['odometer'].fillna(-1)
+# convertimos a enteros, no se puede ser flotante
+ve_us['odometer'] = ve_us['odometer'].astype(int)
+# Sustituimos el -1 por NaN, y los datos conservan estructura
+ve_us['odometer'] = ve_us['odometer'].replace(-1, 'NaN')
+
 # Para no perder datos los valores nulos son Nan
 ve_us['paint_color'] = ve_us['paint_color'].fillna('Nan')
 
 st.header("US Vehicles Data")
-
-st.subheader('Historiograma')
-
-st.subheader('grafico de dispersion')
+st.write('Esta pagina web esta diseñada para mostrar los datos de los autos en Estados Unidos segun el año seleccionado')
 
 st.subheader('Boton')
+selected_year = st.slider('selecciona un año', min_value=int(
+    ve_us['model_year'].min()), max_value=int(ve_us['model_year'].max()))
+start_button = st.button('Buscar')
+if start_button:
+    data_selected_year = ve_us[ve_us['model_year'] >= selected_year]
+    st.write('Buscando autos desde el año {selected_year}')
+    st.write(data_selected_year)
+    # grafico de dispersión
+    st.subheader('Grafico de dispersión')
+    fig, ax = plt.subplots()
+    ax.scatter(data_selected_year, x='days_listed',
+               y='price', color='paint_color')
+    ax.set_xlabel('Dias en venta')
+    ax.set_ylabel('Precio')
+    ax.set_title(
+        'Grafico de dispersion de disponibilidad de autos desde {selected_year}')
+    # historiograma
+    st.subheader('Histograma')
+    fig = px.histogram(data_selected_year, x='odometer', y='price')
