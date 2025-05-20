@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 ve_us = pd.read_csv(
-    "C:\\Users\\USER\OneDrive\\Documentos\\Triple Ten proyects\\modulo_2\\sprint_7\\sprint7\\vehicles_us.csv")
+    "https://raw.githubusercontent.com/Arentilien/sprint7/refs/heads/main/vehicles_us.csv")
 
 st.header("US Vehicles Data")
 st.write('Esta pagina web esta diseñada para mostrar los datos de los autos en Estados Unidos segun el año seleccionado')
